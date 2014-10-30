@@ -1,7 +1,7 @@
 cjdns for Android
 =================
 
-[![tip for next commit](https://tip4commit.com/projects/1049.svg)](https://tip4commit.com/github/berlinmeshnet/cjdns-android)
+[![Build Status](https://travis-ci.org/berlinmeshnet/cjdns-android.svg?branch=master)](https://travis-ci.org/berlinmeshnet/cjdns-android) [![tip for next commit](https://tip4commit.com/projects/1049.svg)](https://tip4commit.com/github/berlinmeshnet/cjdns-android)
 
 Meshnet is an Android app that lets you connect to cjdns networks, without the need for a rooted phone -- thanks to the android.net.VpnService API introduced with Android 4.0 (Ice Cream Sandwich). Older versions still require root.
 
