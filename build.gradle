@@ -30,12 +30,12 @@ android {
         versionCode 1
         versionName "0.0.1-SNAPSHOT"
     }
-//    signingConfigs {
-//        release
-//    }
+    signingConfigs {
+        release
+    }
     buildTypes {
         release {
-//            signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
         }
     }
     lintOptions {
@@ -53,15 +53,15 @@ dependencies {
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
 }
 
-//if (project.hasProperty('keyAlias')) {
-//    android.signingConfigs.release.keyAlias = keyAlias
-//}
-//if (project.hasProperty('keyPassword')) {
-//    android.signingConfigs.release.keyPassword = keyPassword
-//}
-//if (project.hasProperty('storeFile')) {
-//    android.signingConfigs.release.storeFile = file(storeFile)
-//}
-//if (project.hasProperty('storePassword')) {
-//    android.signingConfigs.release.storePassword = storePassword
-//}
+if (project.hasProperty('keyAlias')) {
+    android.signingConfigs.release.keyAlias = keyAlias
+}
+if (project.hasProperty('keyPassword')) {
+    android.signingConfigs.release.keyPassword = keyPassword
+}
+if (project.hasProperty('storeFile')) {
+    android.signingConfigs.release.storeFile = file(storeFile)
+}
+if (project.hasProperty('storePassword')) {
+    android.signingConfigs.release.storePassword = storePassword
+}
