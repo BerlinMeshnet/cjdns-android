@@ -85,7 +85,7 @@ public class MePageFragment extends Fragment {
     @Subscribe
     public void handleMe(Me me) {
         mNameTextView.setText(me.name);
-        mAddressTextView.setText(me.address);
-        mPublicKeyTextView.setText(me.publicKey);
+        mAddressTextView.setText(me.node.getAddress());
+        mPublicKeyTextView.setText(me.node.publicKey);
     }
 }
