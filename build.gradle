@@ -8,45 +8,93 @@ allprojects {
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.3.1'
+        classpath 'com.android.tools.build:gradle:2.2.2'
+        classpath 'org.ajoberstar:gradle-git:0.2.3'
     }
+}
+
+ext {
+    supportVersion = '25.0.1'
+}
+
+import org.ajoberstar.gradle.git.tasks.GitClone
+
+task cloneCjdns(type: GitClone) {
+    def destination = file("cjdns-src")
+
+    uri = "https://github.com/benhylau/cjdns"
+    // Use this repo until patch is merged in cjdelisle/cjdns
+    destinationPath = destination
+    bare = false
+    enabled = !destination.exists() // Clone only on first run
+}
+
+task buildCjdns(type: Exec) {
+    workingDir file("cjdns-src")
+    commandLine file("cjdns-src/android_do")
+}
+
+task copyNativeArtifacts(type: Copy) {
+    from 'cjdns-src/build_android/out/*'
+    into 'src/main/assets/'
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'checkstyle'
 
 android {
-    buildToolsVersion '23.0.2'
-    compileSdkVersion 23
+    buildToolsVersion "25.0.1"
+    compileSdkVersion 25
+
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0.0-SNAPSHOT"
     }
+
+    sourceSets.main {
+        jni.srcDirs = []
+        jniLibs.srcDir 'src/main/libs'
+    }
+
     signingConfigs {
         release
     }
+
     buildTypes {
         release {
             signingConfig signingConfigs.release
         }
     }
+
     lintOptions {
         disable 'InvalidPackage'
     }
 }
 
+afterEvaluate {
+    if (COMPILE_CJDNS_NATIVE_ARTIFACTS.toBoolean()) {
+        android.applicationVariants.all { variant ->
+            variant.javaCompiler.dependsOn(cloneCjdns)
+        }
+    }
+}
+
+cloneCjdns.finalizedBy(buildCjdns)
+buildCjdns.finalizedBy(copyNativeArtifacts)
+
 dependencies {
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:cardview-v7:23.1.1'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.android.support:preference-v7:23.1.1'
-    compile 'com.android.support:preference-v14:23.1.1'
+    compile "com.android.support:support-v4:$supportVersion"
+    compile "com.android.support:appcompat-v7:$supportVersion"
+    compile "com.android.support:cardview-v7:$supportVersion"
+    compile "com.android.support:recyclerview-v7:$supportVersion"
+    compile "com.android.support:preference-v7:$supportVersion"
+    compile "com.android.support:preference-v14:$supportVersion"
     compile 'com.jakewharton:butterknife:6.0.0'
     compile 'com.joanzapata.android:android-iconify:1.0.9'
     compile('com.github.afollestad.material-dialogs:core:0.8.5.3@aar') {
@@ -57,8 +105,8 @@ dependencies {
     compile 'io.reactivex:rxjava:1.0.7'
     compile 'io.reactivex:rxandroid:0.24.0'
     compile 'com.squareup:otto:1.3.5'
-    compile 'com.squareup.dagger:dagger:1.2.2'
-    provided 'com.squareup.dagger:dagger-compiler:1.2.2'
+    compile 'com.google.dagger:dagger:2.8'
+    provided 'com.google.dagger:dagger-compiler:2.8'
 }
 
 if (project.hasProperty('keyAlias')) {

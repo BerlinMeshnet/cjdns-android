@@ -71,7 +71,7 @@ public class ConnectionsDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        ((CjdnsApplication) getActivity().getApplication()).inject(this);
+        ((CjdnsApplication) getActivity().getApplication()).getComponent().inject(this);
 
         Bundle args = getArguments();
         final int peerId = args.getInt(FRAGMENT_BUNDLE_KEY_PEER_ID);
@@ -152,6 +152,11 @@ public class ConnectionsDialogFragment extends DialogFragment {
                     mIsInternalsVisible = theme.isInternalsVisible;
                     notifyDataSetChanged();
                 }
+            }, new Action1<Throwable>() {
+                @Override
+                public void call(Throwable throwable) {
+                    // TODO
+                }
             }));
 
             mSubscriptions.add(peerStream.subscribe(new Action1<Node.Peer>() {
@@ -159,6 +164,11 @@ public class ConnectionsDialogFragment extends DialogFragment {
                 public void call(Node.Peer peer) {
                     mPeer = peer;
                     notifyDataSetChanged();
+                }
+            }, new Action1<Throwable>() {
+                @Override
+                public void call(Throwable throwable) {
+                    // TODO
                 }
             }));
         }
@@ -219,7 +229,7 @@ public class ConnectionsDialogFragment extends DialogFragment {
                 public void onClick(View v) {
                     List<Credential> connections = new ArrayList<>(Arrays.asList(mPeer.outgoingConnections));
                     connections.remove(credential);
-                    Node.Peer update = new Node.Peer(mPeer.id, mPeer.name, mPeer.publicKey,
+                    Node.Peer update = new Node.Peer(mPeer.id, mPeer.name, "", mPeer.publicKey,
                             connections.toArray(new Credential[connections.size()]));
                     mBus.post(new PeerEvents.Update(update));
                 }
