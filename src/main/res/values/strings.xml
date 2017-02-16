@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">cjdns</string>
+    <string name="app_name">MeshNet</string>
 
     <!-- cjdns service -->
     <string name="cjdns_service_notification_title">@string/app_name</string>
