@@ -20,6 +20,8 @@ Installation
 
 **Note:** The cjdns repo is currently cloned from a fork until patches are merged into **cjdelisle/cjdns**.
 
+Or you can download a prebuilt apk [here](http://goo.gl/kw6vNg) (based on [this](https://github.com/hyperboria/android/commit/f68e7a59c69a69650a82bc8fdeea22e85bb58055) commit)
+
 Contact
 -------
 
