@@ -10,8 +10,8 @@ Meshnet is an Android app that lets you connect to cjdns networks, without the n
 Installation
 ------------
 
-1. Install the [Android SDK](http://developer.android.com/sdk/index.html) 
-2. Clone this application repo
+1. Install the [Android SDK](http://developer.android.com/sdk/index.html). 
+2. Clone this application repo.
 3. Clone [cjdns](https://github.com/hyperboria/cjdns) and build native binaries:
 
     ```
@@ -34,8 +34,8 @@ Installation
 Contact
 -------
 
-- Find out how to help by visiting our [issue tracker](https://github.com/hyperboria/android/issues)
-- IRC channel for this project: **#android on [HypeIRC](irc://irc.hypeirc.net)**
+- Find out how to help by visiting our [issue tracker](https://github.com/hyperboria/android/issues).
+- IRC channel for this project: **#android on [HypeIRC](irc://irc.hypeirc.net)**.
 
     ```
     fc13:6176:aaca:8c7f:9f55:924f:26b3:4b14
